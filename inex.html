@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Descripción breve de tu tienda online">
+    <meta name="keywords" content="palabras clave, para, búsqueda">
+    <meta name="author" content="Tu Nombre">
+    <title>Calculadora Completa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="estilos.css">
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        input, select {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calculadora Completa</h1>
+    
+    <form id="calculadoraForm">
+        <label for="opcion">Seleccione una opción:</label>
+        <select id="opcion" name="opcion">
+            <option value="1">Convertir binario a decimal</option>
+            <option value="2">Convertir decimal a binario</option>
+            <option value="3">Convertir IP a binario</option>
+            <option value="4">Convertir binario a IP</option>
+            <option value="5">Calcular área de una figura geométrica</option>
+        </select>
+        
+        <label for="inputNumero">Ingrese el número o IP:</label>
+        <input type="text" id="inputNumero" name="inputNumero" required>
+
+        <div id="medidas" style="display: none;">
+            <label for="medida1">Medida 1:</label>
+            <input type="text" id="medida1" name="medida1">
+            <label for="medida2">Medida 2:</label>
+            <input type="text" id="medida2" name="medida2">
+        </div>
+
+        <button type="button" onclick="calcular()">Calcular</button>
+        
+        <div id="resultado"></div>
+    </form>
+
+    <script>
+        function calcular() {
+            const opcion = document.getElementById("opcion").value;
+            const inputNumero = document.getElementById("inputNumero").value;
+            const medida1 = document.getElementById("medida1").value;
+            const medida2 = document.getElementById("medida2").value;
+
+            const resultadoElement = document.getElementById("resultado");
+
+            if (opcion == 5 && (medida1 === "" || medida2 === "")) {
+                resultadoElement.innerText = "Ingrese medidas para la figura geométrica.";
+                return;
+            }
+
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    resultadoElement.innerText = this.responseText;
+                }
+            };
+
+            const url = `calculadora_completa.py?opcion=${opcion}&inputNumero=${inputNumero}&medida1=${medida1}&medida2=${medida2}`;
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        }
+
+        document.getElementById("opcion").addEventListener("change", function() {
+            const medidasDiv = document.getElementById("medidas");
+            const opcion = this.value;
+
+            if (opcion == 5) {
+                medidasDiv.style.display = "block";
+            } else {
+                medidasDiv.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>
