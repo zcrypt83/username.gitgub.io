@@ -3,40 +3,1172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contáctenos - Tu Empresa</title>
-    <link rel="stylesheet" href="contactenos.css">
+    <title>Portafolio Cyberpunk 3D</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables CSS */
+        :root {
+            --neon-cyan: #00f5ff;
+            --neon-pink: #ff00ff;
+            --matrix-green: #00ff88;
+            --terminal-green: #39ff14;
+            --bg-dark: #0a0a0a;
+            --bg-darker: #050505;
+            --text-light: #f0f0f0;
+            --transition: all 0.4s ease;
+        }
+
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        /* Estilo de enlaces */
+        a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            cursor: pointer;
+            text-shadow: 0 0 5px var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+        }
+
+        .btn:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-dark);
+            box-shadow: 0 0 25px var(--neon-cyan);
+            transform: translateY(-3px);
+        }
+
+        /* Menú Cyberpunk */
+        .cyber-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.7);
+            border: 1px solid var(--neon-pink);
+            border-radius: 30px;
+            padding: 10px 20px;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .cyber-menu ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .cyber-menu a {
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 20px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-menu a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--neon-pink), transparent);
+            transition: var(--transition);
+        }
+
+        .cyber-menu a:hover::before {
+            left: 100%;
+        }
+
+        .cyber-menu a:hover {
+            background: rgba(255, 0, 255, 0.2);
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        /* Hero Section */
+        #hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, #111 0%, var(--bg-dark) 70%);
+        }
+
+        /* Fondo Matrix */
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+            grid-auto-rows: 20px;
+            z-index: -1;
+        }
+
+        .matrix-bg::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.9));
+        }
+
+        .matrix-char {
+            color: var(--matrix-green);
+            animation: fall 5s linear infinite;
+            opacity: 0.5;
+            font-size: 14px;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        #typing {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px var(--neon-cyan);
+            min-height: 120px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px var(--neon-pink);
+        }
+
+        /* Cubo 3D */
+        .cube-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 40px auto;
+            perspective: 1000px;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 15s infinite linear;
+            cursor: pointer;
+        }
+
+        .cube:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate3d(1, 1, 1, 360deg);
+            }
+        }
+
+        .face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--neon-cyan);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            box-shadow: inset 0 0 20px rgba(0, 245, 255, 0.5), 0 0 20px rgba(0, 245, 255, 0.3);
+        }
+
+        .front {
+            transform: translateZ(100px);
+        }
+
+        .back {
+            transform: translateZ(-100px) rotateY(180deg);
+        }
+
+        .right {
+            transform: translateX(100px) rotateY(90deg);
+        }
+
+        .left {
+            transform: translateX(-100px) rotateY(-90deg);
+        }
+
+        .top {
+            transform: translateY(-100px) rotateX(90deg);
+        }
+
+        .bottom {
+            transform: translateY(100px) rotateX(-90deg);
+        }
+
+        /* Skills Section */
+        #skills {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--neon-pink);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+        }
+
+        .skill-card:hover {
+            transform: rotate3d(1, -1, 0, 25deg);
+            box-shadow: 0 0 25px rgba(255, 0, 255, 0.6);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        /* Projects Section */
+        #projects {
+            background: linear-gradient(135deg, #0a0a1a, #1a0a0a);
+            position: relative;
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--matrix-green);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--matrix-green);
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-tag {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--matrix-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Terminal Linux */
+        #terminal {
+            background: linear-gradient(135deg, #0a1a0a, #0a0a1a);
+            min-height: 80vh;
+        }
+
+        .terminal-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 10, 0, 0.7);
+            border: 2px solid var(--terminal-green);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.3);
+            transform: perspective(1000px) rotateX(5deg);
+        }
+
+        .terminal-header {
+            background: rgba(0, 20, 0, 0.8);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--terminal-green);
+        }
+
+        .terminal-title {
+            color: var(--terminal-green);
+            font-weight: bold;
+            text-shadow: 0 0 5px var(--terminal-green);
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .terminal-btn.close {
+            background: #ff5f56;
+        }
+
+        .terminal-btn.minimize {
+            background: #ffbd2e;
+        }
+
+        .terminal-btn.maximize {
+            background: #27c93f;
+        }
+
+        .terminal-body {
+            height: 400px;
+            padding: 20px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 5, 0, 0.9);
+        }
+
+        .terminal-line {
+            margin-bottom: 10px;
+            color: var(--terminal-green);
+            text-shadow: 0 0 3px var(--terminal-green);
+            white-space: pre-wrap;
+        }
+
+        .terminal-line.user {
+            color: var(--neon-cyan);
+        }
+
+        .terminal-input {
+            display: flex;
+            padding: 10px 20px;
+            background: rgba(0, 15, 0, 0.8);
+            border-top: 1px solid var(--terminal-green);
+        }
+
+        .terminal-prompt {
+            color: var(--terminal-green);
+            margin-right: 10px;
+            font-weight: bold;
+            text-shadow: 0 0 3px var(--terminal-green);
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--terminal-green);
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        #terminal-command {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--terminal-green);
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            outline: none;
+            text-shadow: 0 0 3px var(--terminal-green);
+        }
+
+        /* Contact Section */
+        #contact {
+            background: radial-gradient(ellipse at top, #0a0a1a, var(--bg-dark));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-info {
+            padding: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+            margin-right: 1rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .terminal-form {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--neon-cyan);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            border-radius: 5px;
+            color: var(--text-light);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-darker);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 245, 255, 0.2);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: var(--neon-pink);
+            transform: translateY(-5px);
+        }
+
+        /* Modal Easter Egg */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid var(--neon-pink);
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow: auto;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+            text-align: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: var(--neon-pink);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        .cert-cube {
+            width: 300px;
+            height: 300px;
+            margin: 2rem auto;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 20s infinite linear;
+        }
+
+        .cert-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--neon-pink);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+            box-shadow: inset 0 0 20px rgba(255, 0, 255, 0.5), 0 0 20px rgba(255, 0, 255, 0.3);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .cert-front {
+            transform: translateZ(150px);
+        }
+
+        .cert-back {
+            transform: translateZ(-150px) rotateY(180deg);
+        }
+
+        .cert-right {
+            transform: translateX(150px) rotateY(90deg);
+        }
+
+        .cert-left {
+            transform: translateX(-150px) rotateY(-90deg);
+        }
+
+        .cert-top {
+            transform: translateY(-150px) rotateX(90deg);
+        }
+
+        .cert-bottom {
+            transform: translateY(150px) rotateX(-90deg);
+        }
+
+        /* Animaciones */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            #typing {
+                font-size: 2rem;
+                min-height: 90px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .cube-container {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .face {
+                width: 150px;
+                height: 150px;
+                font-size: 1.5rem;
+            }
+            
+            .front { transform: translateZ(75px); }
+            .back { transform: translateZ(-75px) rotateY(180deg); }
+            .right { transform: translateX(75px) rotateY(90deg); }
+            .left { transform: translateX(-75px) rotateY(-90deg); }
+            .top { transform: translateY(-75px) rotateX(90deg); }
+            .bottom { transform: translateY(75px) rotateX(-90deg); }
+            
+            .cert-cube {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .cert-face {
+                font-size: 1.2rem;
+            }
+            
+            .cert-front { transform: translateZ(100px); }
+            .cert-back { transform: translateZ(-100px) rotateY(180deg); }
+            .cert-right { transform: translateX(100px) rotateY(90deg); }
+            .cert-left { transform: translateX(-100px) rotateY(-90deg); }
+            .cert-top { transform: translateY(-100px) rotateX(90deg); }
+            .cert-bottom { transform: translateY(100px) rotateX(-90deg); }
+            
+            .cyber-menu {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+            }
+            
+            .cyber-menu ul {
+                gap: 10px;
+            }
+            
+            .cyber-menu a {
+                font-size: 0.9rem;
+                padding: 5px 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="logo.png" alt="Logo de la empresa">
-        </div>
-    </header>
+    <!-- Menú Cyberpunk -->
+    <nav class="cyber-menu">
+        <ul>
+            <li><a href="#hero">Inicio</a></li>
+            <li><a href="#skills">Habilidades</a></li>
+            <li><a href="#projects">Proyectos</a></li>
+            <li><a href="#terminal">Terminal</a></li>
+            <li><a href="#contact">Contacto</a></li>
+        </ul>
+    </nav>
 
-    <section id="contactenos" class="contactenos-section">
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="matrix-bg" id="matrix-container"></div>
         <div class="container">
-            <h1>Contáctenos</h1>
-            <p>Estamos aquí para responder a todas tus preguntas. ¡No dudes en ponerte en contacto con nosotros!</p>
-
-            <form action="#" method="post" class="contact-form">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
-
-                <label for="email">Correo Electrónico:</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="mensaje">Mensaje:</label>
-                <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
-
-                <button type="submit">Enviar Mensaje</button>
-            </form>
+            <div class="hero-content">
+                <h1 id="typing"></h1>
+                <p class="hero-subtitle">Desarrollador Full Stack & Especialista en Seguridad</p>
+                <div class="cube-container">
+                    <div class="cube">
+                        <div class="face front"><i class="fas fa-code"></i></div>
+                        <div class="face back"><i class="fas fa-lock"></i></div>
+                        <div class="face right"><i class="fas fa-terminal"></i></div>
+                        <div class="face left"><i class="fas fa-network-wired"></i></div>
+                        <div class="face top"><i class="fas fa-server"></i></div>
+                        <div class="face bottom"><i class="fas fa-bug"></i></div>
+                    </div>
+                </div>
+                <a href="#contact" class="btn">Contáctame</a>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2024 Tu Empresa. Todos los derechos reservados.</p>
-    </footer>
-    <script src="script1.js"></script>
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Habilidades</h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                    <h3>HTML5 & CSS3</h3>
+                    <p>Diseño responsivo, Grid, Flexbox, Animaciones CSS, Variables CSS.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fab fa-js"></i></div>
+                    <h3>JavaScript ES6+</h3>
+                    <p>Vanilla JS, APIs, Web Components, ES6 Features, Programación Funcional.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Seguridad Web</h3>
+                    <p>OWASP Top 10, Pentesting, Auditorías de Seguridad, Criptografía.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-database"></i></div>
+                    <h3>Bases de Datos</h3>
+                    <p>SQL, NoSQL, MongoDB, PostgreSQL, Optimización de Queries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Proyectos</h2>
+            <div class="projects-container">
+                <div class="project-card">
+                    <h3 class="project-title">Sistema de Seguridad Web</h3>
+                    <p>Plataforma de monitoreo de seguridad en tiempo real con detección de intrusos y análisis de vulnerabilidades.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Express</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">WebSockets</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Aplicación de Comercio Electrónico</h3>
+                    <p>Plataforma de comercio electrónico con carrito de compras, pasarela de pagos y panel de administración.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Redux</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Stripe API</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Herramienta de Pentesting</h3>
+                    <p>Herramienta de seguridad para pruebas de penetración con escaneo de puertos y vulnerabilidades.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">Nmap</span>
+                        <span class="tech-tag">OWASP ZAP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terminal Linux -->
+    <section id="terminal">
+        <div class="container">
+            <h2 class="section-title">Terminal Linux</h2>
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="terminal-btn close"></span>
+                        <span class="terminal-btn minimize"></span>
+                        <span class="terminal-btn maximize"></span>
+                    </div>
+                    <div class="terminal-title">user@devsec: ~/portafolio</div>
+                </div>
+                <div class="terminal-body" id="terminal-output">
+                    <div class="terminal-line">Bienvenido a la terminal interactiva de DevSec.</div>
+                    <div class="terminal-line">Escribe "help" para ver los comandos disponibles.</div>
+                    <div class="terminal-line"></div>
+                    <div class="terminal-line user">user@devsec:~$ <span id="last-command"></span></div>
+                </div>
+                <div class="terminal-input">
+                    <span class="terminal-prompt">user@devsec:~$</span>
+                    <input type="text" id="terminal-command" autocomplete="off" spellcheck="false" placeholder="Escribe un comando...">
+                    <span class="terminal-cursor"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>contacto@devsec.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <h3>Teléfono</h3>
+                            <p>+34 612 345 678</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h3>Ubicación</h3>
+                            <p>Madrid, España</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="terminal-form">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-codepen"></i></a>
+        </div>
+        <p>&copy; 2023 Portafolio DevSec. Todos los derechos reservados.</p>
+        <p class="hint">Presiona Ctrl+Alt+K para un easter egg</p>
+    </footer>
+
+    <!-- Modal Easter Egg -->
+    <div id="easter-egg-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Certificaciones</h2>
+            <p>Estas son algunas de mis certificaciones en desarrollo y seguridad:</p>
+            <div class="cert-cube">
+                <div class="cert-face cert-front">Certified Ethical Hacker (CEH)</div>
+                <div class="cert-face cert-back">AWS Certified Developer</div>
+                <div class="cert-face cert-right">CompTIA Security+</div>
+                <div class="cert-face cert-left">Google Cloud Professional</div>
+                <div class="cert-face cert-top">Cisco CCNA</div>
+                <div class="cert-face cert-bottom">Certified Information Systems Security Professional (CISSP)</div>
+            </div>
+            <p>¡Gracias por descubrir este easter egg!</p>
+        </div>
+    </div>
+
+    <script>
+        // Efecto de máquina de escribir
+        const typingElement = document.getElementById('typing');
+        const texts = [
+            "Desarrollador Full Stack",
+            "Especialista en Seguridad",
+            "Entusiasta del Código Limpio",
+            "Solucionador de Problemas"
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+
+        function type() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 150;
+            }
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                typingSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typingSpeed = 500;
+            }
+            
+            setTimeout(type, typingSpeed);
+        }
+
+        // Fondo Matrix
+        function createMatrixBackground() {
+            const matrixContainer = document.getElementById('matrix-container');
+            const chars = "0101010101010101010101010101010101010101010101010101010101010101";
+            const charArray = chars.split("");
+            
+            // Calcular cuántos caracteres necesitamos
+            const containerWidth = window.innerWidth;
+            const containerHeight = window.innerHeight;
+            const cols = Math.floor(containerWidth / 20);
+            const rows = Math.floor(containerHeight / 20);
+            const totalChars = cols * rows;
+            
+            // Crear los caracteres
+            for (let i = 0; i < totalChars; i++) {
+                const char = document.createElement('div');
+                char.className = 'matrix-char';
+                char.textContent = charArray[Math.floor(Math.random() * charArray.length)];
+                char.style.animationDelay = `${Math.random() * 5}s`;
+                matrixContainer.appendChild(char);
+            }
+        }
+
+        // Efecto parallax para las secciones
+        function setupParallax() {
+            const sections = document.querySelectorAll('section');
+            
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                
+                sections.forEach(section => {
+                    const depth = section.getAttribute('data-depth') || 0.05;
+                    const movement = -(scrollY * depth);
+                    section.style.backgroundPosition = `center ${movement}px`;
+                });
+            });
+        }
+
+        // Terminal Linux interactiva
+        function setupTerminal() {
+            const terminalOutput = document.getElementById('terminal-output');
+            const terminalInput = document.getElementById('terminal-command');
+            const lastCommand = document.getElementById('last-command');
+            
+            // Comandos disponibles
+            const commands = {
+                help: "Comandos disponibles: help, about, skills, projects, contact, clear",
+                about: "Soy un desarrollador full stack especializado en seguridad con más de 5 años de experiencia.",
+                skills: "Habilidades: JavaScript, Python, Node.js, React, Seguridad Web, Pentesting",
+                projects: "Proyectos destacados: Sistema de Seguridad Web, Herramienta de Pentesting, Plataforma E-commerce",
+                contact: "Contacto: email@ejemplo.com | +34 612 345 678 | Madrid, España",
+                clear: function() { 
+                    terminalOutput.innerHTML = '<div class="terminal-line">Terminal limpiada. Escribe "help" para ver los comandos disponibles.</div>'; 
+                },
+                sudo: "Acceso denegado: no tienes permisos de superusuario.",
+                ls: "about.txt  projects/  skills.md  contact.html",
+                whoami: "user@devsec",
+                date: new Date().toLocaleString(),
+                echo: function(args) {
+                    return args.join(' ');
+                }
+            };
+            
+            // Manejar entrada de comandos
+            terminalInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    const command = terminalInput.value.trim();
+                    terminalInput.value = '';
+                    
+                    if (command) {
+                        // Mostrar comando en la terminal
+                        lastCommand.textContent = command;
+                        
+                        // Procesar comando
+                        const commandParts = command.split(' ');
+                        const cmd = commandParts[0].toLowerCase();
+                        const args = commandParts.slice(1);
+                        
+                        // Crear nueva línea para resultado
+                        const resultLine = document.createElement('div');
+                        resultLine.className = 'terminal-line';
+                        
+                        // Ejecutar comando
+                        if (commands[cmd]) {
+                            if (typeof commands[cmd] === 'function') {
+                                resultLine.textContent = commands[cmd](args);
+                            } else {
+                                resultLine.textContent = commands[cmd];
+                            }
+                        } else {
+                            resultLine.textContent = `Comando no encontrado: ${cmd}. Escribe "help" para ver los comandos disponibles.`;
+                        }
+                        
+                        // Agregar resultado a la terminal
+                        terminalOutput.appendChild(resultLine);
+                        
+                        // Crear nueva línea de entrada
+                        const newInputLine = document.createElement('div');
+                        newInputLine.className = 'terminal-line user';
+                        newInputLine.innerHTML = 'user@devsec:~$ <span id="last-command"></span>';
+                        
+                        // Actualizar referencia
+                        terminalOutput.appendChild(newInputLine);
+                        lastCommand = document.getElementById('last-command');
+                        
+                        // Hacer scroll al final
+                        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                    }
+                }
+            });
+            
+            // Enfocar el input al cargar
+            terminalInput.focus();
+        }
+
+        // Easter Egg modal
+        function setupEasterEgg() {
+            const modal = document.getElementById('easter-egg-modal');
+            const closeBtn = document.querySelector('.close-modal');
+            
+            // Mostrar modal con Ctrl+Alt+K
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.altKey && e.key === 'k') {
+                    modal.style.display = 'flex';
+                }
+            });
+            
+            // Cerrar modal
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            
+            // Cerrar al hacer clic fuera del modal
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            // Iniciar efectos
+            type();
+            createMatrixBackground();
+            setupParallax();
+            setupTerminal();
+            setupEasterEgg();
+            
+            // Añadir efecto flotante a elementos
+            const floatElements = document.querySelectorAll('.cube-container, .btn');
+            floatElements.forEach(el => {
+                el.classList.add('float');
+            });
+        });
+    </script>
 </body>
 </html>
